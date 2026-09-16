@@ -1,0 +1,330 @@
+<SW-Core02>dis cu
+#
+sysname SW-Core02
+#
+super password level 3 cipher l,:[$hblaX#:_}$%70:#*=w#
+#
+info-center loghost 192.168.200.31
+#
+vlan batch 10 to 11 20 to 21 30 40 50 60 to 61 70 to 71 80 200 253
+vlan batch 900 to 901 999
+#
+stp instance 0 root secondary
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+undo nap slave enable
+#
+drop illegal-mac alarm
+#
+dhcp enable
+#
+diffserv domain default
+#
+drop-profile default
+#
+ip pool vlan10
+ gateway-list 192.168.10.254
+ network 192.168.10.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan11
+ gateway-list 192.168.11.254
+ network 192.168.11.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan20
+ gateway-list 192.168.20.254
+ network 192.168.20.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan21
+ gateway-list 192.168.21.254
+ network 192.168.21.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan30
+ gateway-list 192.168.30.254
+ network 192.168.30.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan40
+ gateway-list 192.168.40.254
+ network 192.168.40.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan50
+ gateway-list 192.168.50.254
+ network 192.168.50.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan60
+ gateway-list 192.168.60.254
+ network 192.168.60.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan61
+ gateway-list 192.168.61.254
+ network 192.168.61.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan70
+ gateway-list 192.168.70.254
+ network 192.168.70.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan71
+ gateway-list 192.168.71.254
+ network 192.168.71.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+ dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan80
+ gateway-list 192.168.80.254
+ network 192.168.80.0 mask 255.255.255.0
+ lease day 7 hour 0 minute 0
+dns-list 114.114.114.114 8.8.8.8
+#
+ip pool vlan900
+ option 43 sub-option 2 ip-address 192.168.255.18
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password simple admin
+ local-user admin service-type http
+ local-user netadmin password simple 123456
+ local-user netadmin privilege level 15
+ local-user netadmin service-type telnet
+#
+interface Vlanif1
+#
+interface Vlanif10
+ ip address 192.168.10.252 255.255.255.0
+ vrrp vrid 10 virtual-ip 192.168.10.254
+ vrrp vrid 10 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif11
+ ip address 192.168.11.252 255.255.255.0
+ vrrp vrid 11 virtual-ip 192.168.11.254
+ vrrp vrid 11 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif20
+ ip address 192.168.20.252 255.255.255.0
+ vrrp vrid 20 virtual-ip 192.168.20.254
+ vrrp vrid 20 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif21
+ ip address 192.168.21.252 255.255.255.0
+ vrrp vrid 21 virtual-ip 192.168.21.254
+ vrrp vrid 21 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif30
+ ip address 192.168.30.252 255.255.255.0
+ vrrp vrid 30 virtual-ip 192.168.30.254
+ vrrp vrid 30 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif40
+ ip address 192.168.40.252 255.255.255.0
+ vrrp vrid 40 virtual-ip 192.168.40.254
+ vrrp vrid 40 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif50
+ ip address 192.168.50.252 255.255.255.0
+ vrrp vrid 50 virtual-ip 192.168.50.254
+ vrrp vrid 50 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif60
+ ip address 192.168.60.252 255.255.255.0
+ vrrp vrid 60 virtual-ip 192.168.60.254
+ vrrp vrid 60 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif61
+ ip address 192.168.61.252 255.255.255.0
+ vrrp vrid 61 virtual-ip 192.168.61.254
+ vrrp vrid 61 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif70
+ ip address 192.168.70.252 255.255.255.0
+ vrrp vrid 70 virtual-ip 192.168.70.254
+ vrrp vrid 70 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif71
+ ip address 192.168.71.252 255.255.255.0
+ vrrp vrid 71 virtual-ip 192.168.71.254
+ vrrp vrid 71 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif80
+ ip address 192.168.80.252 255.255.255.0
+ vrrp vrid 80 virtual-ip 192.168.80.254
+ vrrp vrid 80 preempt-mode timer delay 10
+ dhcp select global
+#
+interface Vlanif200
+ ip address 192.168.200.252 255.255.255.0
+ vrrp vrid 200 virtual-ip 192.168.200.254
+ vrrp vrid 200 preempt-mode timer delay 10
+#
+interface Vlanif253
+ ip address 192.168.251.3 255.255.255.0
+#
+interface Vlanif900
+ ip address 192.168.255.2 255.255.255.0
+ vrrp vrid 254 virtual-ip 192.168.255.254
+ vrrp vrid 254 preempt-mode timer delay 10
+#
+interface Vlanif901
+ ip address 192.168.100.1 255.255.255.0
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 10 to 11 20 to 21 900 999
+#
+interface GigabitEthernet0/0/2
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 30 900 999
+#
+interface GigabitEthernet0/0/3
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 40 900 999
+#
+interface GigabitEthernet0/0/4
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 50 900 999
+#
+interface GigabitEthernet0/0/5
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 60 to 61 70 to 71 900 999
+#
+interface GigabitEthernet0/0/6
+ port link-type trunk
+ port trunk pvid vlan 900
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 80 900 999
+#
+interface GigabitEthernet0/0/7
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 200 900
+#
+interface GigabitEthernet0/0/8
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 2 to 4094
+#
+interface GigabitEthernet0/0/9
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 900
+#
+interface GigabitEthernet0/0/10
+#
+interface GigabitEthernet0/0/11
+#
+interface GigabitEthernet0/0/12
+#
+interface GigabitEthernet0/0/13
+#
+interface GigabitEthernet0/0/14
+#
+interface GigabitEthernet0/0/15
+#
+interface GigabitEthernet0/0/16
+#
+interface GigabitEthernet0/0/17
+#
+interface GigabitEthernet0/0/18
+#
+interface GigabitEthernet0/0/19
+#
+interface GigabitEthernet0/0/20
+#
+interface GigabitEthernet0/0/21
+#
+interface GigabitEthernet0/0/22
+#
+interface GigabitEthernet0/0/23
+ description To_FW2_G1/0/0
+ port link-type trunk
+ port trunk pvid vlan 253
+ port trunk allow-pass vlan 253 900 to 901
+#
+interface GigabitEthernet0/0/24
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 2 to 4094
+#
+interface NULL0
+#
+ospf 1 router-id 6.6.6.6
+ area 0.0.0.0
+  network 192.168.10.0 0.0.0.255
+  network 192.168.11.0 0.0.0.255
+  network 192.168.20.0 0.0.0.255
+  network 192.168.21.0 0.0.0.255
+  network 192.168.30.0 0.0.0.255
+  network 192.168.40.0 0.0.0.255
+  network 192.168.50.0 0.0.0.255
+  network 192.168.60.0 0.0.0.255
+  network 192.168.61.0 0.0.0.255
+  network 192.168.70.0 0.0.0.255
+  network 192.168.71.0 0.0.0.255
+  network 192.168.80.0 0.0.0.255
+  network 192.168.200.0 0.0.0.255
+  network 192.168.255.0 0.0.0.255
+  network 192.168.251.0 0.0.0.255
+#
+ip route-static 0.0.0.0 0.0.0.0 192.168.251.4
+ip route-static 192.168.0.0 255.255.0.0 192.168.250.1
+ip route-static 192.168.254.0 255.255.255.0 192.168.107.254
+ip route-static 192.168.254.0 255.255.255.0 192.168.251.2
+#
+snmp-agent
+snmp-agent local-engineid 800007DB034C1FCC312ED5
+snmp-agent community read  admin@123
+snmp-agent sys-info version v3
+snmp-agent target-host trap address udp-domain 192.168.200.30 params securitynam
+e admin@123
+snmp-agent trap enable
+#
+user-interface con 0
+ authentication-mode password
+ set authentication password cipher l,:[$hblaX#:_}$%70:#*=w#
+ idle-timeout 5 0
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 60 0
+#

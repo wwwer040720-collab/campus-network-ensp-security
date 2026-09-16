@@ -1,0 +1,127 @@
+<SW-Agg-04>dis cu
+#
+sysname SW-Agg-04
+#
+super password level 3 cipher W/9EErE\l-6:8d$[Fr'D/PC#
+#
+undo info-center enable
+#
+vlan batch 50 900 999
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+undo nap slave enable
+#
+drop illegal-mac alarm
+#
+diffserv domain default
+#
+drop-profile default
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password cipher !#U8ZHD4F/)I>,Z,88J\:Q!!
+ local-user admin privilege level 15
+ local-user admin service-type telnet ssh
+ local-user netadmin password simple 123456
+ local-user netadmin privilege level 15
+ local-user netadmin service-type telnet
+#
+interface Vlanif1
+#
+interface Vlanif900
+ ip address 192.168.255.6 255.255.255.0
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 2 to 4094
+#
+interface GigabitEthernet0/0/2
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 2 to 4094
+#
+interface GigabitEthernet0/0/3
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 50 900
+#
+interface GigabitEthernet0/0/4
+#
+interface GigabitEthernet0/0/5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+interface GigabitEthernet0/0/9
+#
+interface GigabitEthernet0/0/10
+#
+interface GigabitEthernet0/0/11
+#
+interface GigabitEthernet0/0/12
+#
+interface GigabitEthernet0/0/13
+#
+interface GigabitEthernet0/0/14
+#
+interface GigabitEthernet0/0/15
+#
+interface GigabitEthernet0/0/16
+#
+interface GigabitEthernet0/0/17
+#
+interface GigabitEthernet0/0/18
+#
+interface GigabitEthernet0/0/19
+#
+interface GigabitEthernet0/0/20
+#
+interface GigabitEthernet0/0/21
+#
+interface GigabitEthernet0/0/22
+#
+interface GigabitEthernet0/0/23
+#
+interface GigabitEthernet0/0/24
+ port link-type trunk
+ port trunk pvid vlan 900
+ port trunk allow-pass vlan 2 to 4094
+#
+interface NULL0
+#
+ospf 1 router-id 3.3.3.4
+ area 0.0.0.0
+  network 192.168.255.0 0.0.0.255
+#
+ip route-static 0.0.0.0 0.0.0.0 192.168.255.254
+ip route-static 0.0.0.0 0.0.0.0 192.168.255.1
+#
+snmp-agent
+snmp-agent local-engineid 800007DB034C1FCCAD0104
+snmp-agent community read  public
+snmp-agent community write  private
+snmp-agent sys-info version v2c v3
+snmp-agent target-host trap address udp-domain 192.168.200.30 params securitynam
+e public
+#
+user-interface con 0
+ authentication-mode password
+ set authentication password cipher G>nO/u_GeO,vs=Hws)!W^U,#
+ idle-timeout 5 0
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 60 0
+#

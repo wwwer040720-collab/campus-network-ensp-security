@@ -1,0 +1,327 @@
+<FW2>dis cu 
+2026-06-09 14:31:21.480 
+!Software Version V500R005C10SPC300
+#
+sysname FW2
+#
+ l2tp domain suffix-separator @
+#
+info-center loghost 192.168.200.31
+#
+ ipsec sha2 compatible enable
+#
+undo telnet ipv6 server enable
+#
+ update schedule location-sdb weekly Sun 04:39
+#
+ firewall defend action discard
+#
+ banner enable
+#
+ user-manage web-authentication security port 8887
+ undo privacy-statement english
+ undo privacy-statement chinese
+page-setting
+ user-manage security version tlsv1.1 tlsv1.2
+password-policy
+ level high
+user-manage single-sign-on ad
+user-manage single-sign-on tsm
+user-manage single-sign-on radius
+user-manage auto-sync online-user
+#
+ web-manager security version tlsv1.1 tlsv1.2
+ web-manager enable
+ web-manager security enable
+#
+firewall dataplane to manageplane application-apperceive default-action drop
+#
+ undo ips log merge enable
+#
+ decoding uri-cache disable
+#
+ update schedule ips-sdb daily 04:56
+ update schedule av-sdb daily 04:56
+ update schedule sa-sdb daily 04:56
+ update schedule cnc daily 04:56
+ update schedule file-reputation daily 04:56
+#
+ip vpn-instance default
+ ipv4-family
+#
+ time-range worktime
+  period-range 08:00:00 to 18:00:00 working-day
+#
+ike proposal default
+ encryption-algorithm aes-256 aes-192 aes-128
+ dh group14
+ authentication-algorithm sha2-512 sha2-384 sha2-256
+ authentication-method pre-share
+ integrity-algorithm hmac-sha2-256
+ prf hmac-sha2-256
+#
+aaa
+ authentication-scheme default
+ authentication-scheme admin_local
+ authentication-scheme admin_radius_local
+ authentication-scheme admin_hwtacacs_local
+ authentication-scheme admin_ad_local
+ authentication-scheme admin_ldap_local
+ authentication-scheme admin_radius
+ authentication-scheme admin_hwtacacs
+ authentication-scheme admin_ad
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+  service-type internetaccess ssl-vpn l2tp ike
+  internet-access mode password
+  reference user current-domain
+ manager-user audit-admin
+  password cipher @%@%I~}@+2R{`Q;jnJBnJc[N=^yCJ`6i$*DWgPg2|PG`LDr$^yF=@%@%
+  service-type web terminal
+  level 15
+
+ manager-user api-admin
+  password cipher @%@%PF!Z)1;wJAeU\7'"e-,7*+<&_Qp,37R9l@<O]|0H6HSL+<)*@%@%
+  level 15
+
+ manager-user admin
+  password cipher @%@%SZU3KUDmO@dcM"5T"_yXM|2zpQ)@+7PZ8XeB\@RWp/H,|2}M@%@%
+  service-type web terminal
+  level 15
+
+ manager-user netadmin
+  password cipher @%@%zT<rKBbc5C*7IW3QKc@FB1r9TR5^I&9JK<!s|EPYI+*91r<B@%@%
+  service-type terminal telnet
+  level 15
+
+ role system-admin
+ role device-admin
+ role device-admin(monitor)
+ role audit-admin
+ bind manager-user audit-admin role audit-admin
+ bind manager-user admin role system-admin
+#
+l2tp-group default-lns
+#
+interface GigabitEthernet0/0/0
+ undo shutdown
+ ip address 192.168.253.2 255.255.255.0
+ alias GE0/METH
+ service-manage ping permit
+#
+interface GigabitEthernet0/0/0.900
+ vlan-type dot1q 900
+ ip address 192.168.255.30 255.255.255.0
+ service-manage ping permit
+ service-manage telnet permit
+#
+interface GigabitEthernet1/0/0
+ undo shutdown
+ ip address 192.168.251.4 255.255.255.0
+ service-manage ping permit
+#
+interface GigabitEthernet1/0/0.901
+ vlan-type dot1q 901
+ ip address 192.168.100.30 255.255.255.0
+ service-manage ping permit
+ service-manage telnet permit
+#
+interface GigabitEthernet1/0/1
+ undo shutdown
+ ip address 192.168.254.2 255.255.255.0
+ service-manage ping permit
+#
+interface GigabitEthernet1/0/2
+ undo shutdown
+ ip address 192.168.252.4 255.255.255.0
+ service-manage ping permit
+#
+interface GigabitEthernet1/0/3
+ undo shutdown
+#
+interface GigabitEthernet1/0/4
+ undo shutdown
+#
+interface GigabitEthernet1/0/5
+ undo shutdown
+#
+interface GigabitEthernet1/0/6
+ undo shutdown
+#
+interface Virtual-if0
+#
+interface NULL0
+#
+firewall zone local
+ set priority 100
+#
+firewall zone trust
+ set priority 85
+ add interface GigabitEthernet0/0/0
+ add interface GigabitEthernet0/0/0.900
+ add interface GigabitEthernet1/0/0
+ add interface GigabitEthernet1/0/0.901
+#
+firewall zone untrust
+ set priority 5
+ add interface GigabitEthernet1/0/1
+ add interface GigabitEthernet1/0/2
+#
+firewall zone dmz
+ set priority 50
+#
+ospf 1 router-id 5.5.5.5
+ area 0.0.0.0
+  network 192.168.251.0 0.0.0.255
+  network 192.168.252.0 0.0.0.255
+  network 192.168.253.0 0.0.0.255
+  network 192.168.254.0 0.0.0.255
+#
+ip route-static 0.0.0.0 0.0.0.0 192.168.254.1
+ip route-static 0.0.0.0 0.0.0.0 192.168.252.5 preference 70
+ip route-static 36.126.62.0 255.255.255.0 192.168.254.1
+ip route-static 36.144.42.0 255.255.255.0 192.168.254.1
+ip route-static 192.168.0.0 255.255.0.0 192.168.253.1
+ip route-static 192.168.0.0 255.255.0.0 192.168.254.1
+ip route-static 192.168.34.0 255.255.255.0 192.168.254.1
+ip route-static 192.168.64.0 255.255.255.0 192.168.254.1
+ip route-static 192.168.64.0 255.255.255.0 192.168.251.3
+#
+snmp-agent
+snmp-agent local-engineid 800007DB0300E0FC612F79
+snmp-agent community read cipher %^%#Cp1!NuNd~,1@AL$Dh($Q$Vl{;eH@*<]LoJ2}5Ay;+4S
+)TS1%R13nRrWFQEZ(WzDH&nn:)&]c5^!{iKbF%^%#
+snmp-agent sys-info version v3
+snmp-agent target-host trap address udp-domain 192.168.200.30 params securitynam
+e cipher %^%#jD,2"jkBp#n5ud0/8F>K12}z(o.DF-m<:A/ojLt$%^%#
+snmp-agent trap enable
+#
+undo ssh server compatible-ssh1x enable
+ssh authentication-type default password
+ssh server cipher aes256_ctr aes128_ctr
+ssh server hmac sha2_256 sha1
+ssh client cipher aes256_ctr aes128_ctr
+ssh client hmac sha2_256 sha1
+#
+firewall detect ftp
+#
+user-interface con 0
+ authentication-mode aaa
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 60 0
+ protocol inbound telnet
+user-interface vty 16 20
+#
+pki realm default
+#
+sa
+#
+location
+#
+multi-linkif
+ mode proportion-of-weight
+#
+right-manager server-group
+#
+device-classification
+ device-group pc
+ device-group mobile-terminal
+ device-group undefined-group
+#
+user-manage server-sync tsm
+#
+security-policy
+ rule name permit_xingzheng_caiwu
+  source-zone trust
+  destination-zone trust
+  source-address 192.168.40.0 mask 255.255.255.0
+  destination-address 192.168.200.10 mask 255.255.255.255
+  action permit
+ rule name deny_all_other_to_caiwu
+  source-zone trust
+  destination-zone trust
+  destination-address 192.168.200.10 mask 255.255.255.255
+  action deny
+ rule name deny_vlan20_internet
+  source-zone trust
+  destination-zone untrust
+  source-address 192.168.20.0 mask 255.255.255.0
+  action deny
+ rule name bm
+  source-zone local
+  destination-zone trust
+  action permit
+ rule name local_to_untrust
+  source-zone local
+  destination-zone untrust
+  service ssh
+  service telnet
+  action permit
+ rule name trust_to_untrust
+  source-zone trust
+  destination-zone untrust
+  action permit
+ rule name untrust_to_local
+  source-zone untrust
+  destination-zone local
+  action permit
+ rule name all_permit
+  action permit
+ rule name permit_core_to_router
+  source-zone trust
+  destination-zone untrust
+  action permit
+ rule name allow_untrust_to_local_icmp
+  source-zone untrust
+  destination-zone local
+  service icmp
+  action permit
+ rule name allow_ping
+  source-zone untrust
+  destination-zone local
+  service icmp
+  action permit
+ rule name allow_local_to_untrust_icmp
+  source-zone local
+  destination-zone untrust
+  service icmp
+  action permit
+ rule name permit_web80
+  destination-zone trust
+  service protocol tcp destination-port 80
+  action permit
+ rule name permit_trust_to_local_icmp
+  source-zone trust
+  destination-zone local
+  service icmp
+  action permit
+ rule name permit_trust_to_local_mgmt
+  source-zone trust
+  destination-zone local
+  service https
+  service ssh
+  action permit
+#
+auth-policy
+#
+traffic-policy
+#
+policy-based-route
+#
+nat-policy
+ rule name nat_outbound
+  source-zone trust
+  destination-zone untrust
+  action source-nat easy-ip
+#
+quota-policy
+#
+pcp-policy
+#
+dns-transparent-policy
+#
+rightm-policy
+#
+return
