@@ -69,8 +69,7 @@
 ```
 .
 ├── README.md                         # 项目说明（本文件）
-├── 网络拓扑.png                      # eNSP 网络拓扑截图（README 中直接引用）
-├── 设备配置/                         # 全部网络设备运行配置（华为 VRP，共 24 份）
+├── 设备配置/                         # 全部网络设备运行配置
 │   ├── SW-Core-01.txt                # 核心交换机 1：STP 根桥、VRRP、DHCP 地址池、VLAN 间路由、ACL
 │   ├── SW-Core-02.txt                # 核心交换机 2：STP 次根桥、VRRP、Vlanif901 管理互联
 │   ├── SW-Agg-01 ~ SW-Agg-06.txt     # 汇聚交换机：楼宇汇聚、Trunk 双链路上联、管理地址 192.168.255.x
@@ -79,7 +78,7 @@
 │   ├── R-Out-01 / R-Out-02.txt       # 出口路由器：双出口、NAT outbound、OSPF + 静态路由
 │   ├── R-Campus-01 / R-Campus-02.txt # 北 / 南校区出口路由器：校区网段接入、双上联冗余
 │   └── R-ISP-01 / R-ISP-02.txt       # 运营商接入路由器：NAT Server 端口映射、外网服务模拟
-└── 应急预案/                         # 7 套网络安全事件应急响应报告（Word）
+└── 应急预案/                         # 7 套网络安全事件应急响应报告
     ├── 应急预案报告（arp欺骗操作）.docx        # ARP 欺骗 / 中间人攻击
     ├── 应急预案报告（mac洪泛攻击）.docx        # MAC 洪泛攻击
     ├── 应急预案报告（TCP SYN 洪水攻击）.docx   # TCP SYN 洪水攻击
