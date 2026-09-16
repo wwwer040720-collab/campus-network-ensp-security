@@ -1,0 +1,86 @@
+<R-ISP-01>dis cu
+[V200R003C00]
+#
+ sysname R-ISP-01
+#
+ board add 0/2 1GEC 
+#
+ snmp-agent local-engineid 800007DB03000000000000
+ snmp-agent 
+#
+ clock timezone China-Standard-Time minus 08:00:00
+#
+portal local-server load flash:/portalpage.zip
+#
+ drop illegal-mac alarm
+#
+ wlan ac-global carrier id other ac id 0
+#
+ set cpu-usage threshold 80 restore 75
+#
+aaa 
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default 
+ domain default_admin 
+ local-user admin password cipher %$%$K8m.Nt84DZ}e#<0`8bmE3Uw}%$%$
+ local-user admin service-type http
+ local-user netadmin password cipher %$%$``&H,|5f7LRz)Z20kVC+k8;}%$%$
+ local-user netadmin privilege level 15
+ local-user netadmin service-type telnet
+#
+firewall zone Local
+ priority 15
+#
+interface Ethernet0/0/0
+#
+interface Ethernet0/0/1
+#
+interface Ethernet0/0/2
+#
+interface Ethernet0/0/3
+#
+interface Ethernet0/0/4
+#
+interface Ethernet0/0/5
+#
+interface Ethernet0/0/6
+#
+interface Ethernet0/0/7
+#
+interface GigabitEthernet0/0/0
+ ip address 61.182.20.2 255.255.255.248 
+ nat server protocol tcp global current-interface www inside 192.168.1.10 www
+#
+interface GigabitEthernet0/0/1
+ ip address 36.144.42.254 255.255.255.0 
+#
+interface GigabitEthernet2/0/0
+ ip address 183.198.2.2 255.255.255.248 
+#
+interface NULL0
+#
+ip route-static 0.0.0.0 0.0.0.0 61.182.20.1
+ip route-static 36.144.42.0 255.255.255.0 GigabitEthernet0/0/1
+ip route-static 192.168.0.0 255.255.0.0 61.182.20.1
+ip route-static 192.168.0.0 255.255.0.0 183.198.2.1
+ip route-static 192.168.34.0 255.255.255.0 192.168.254.1
+ip route-static 192.168.34.0 255.255.255.0 61.182.20.1
+ip route-static 192.168.34.0 255.255.255.0 183.198.2.1
+ip route-static 192.168.34.0 255.255.255.0 192.168.252.5
+ip route-static 192.168.64.0 255.255.255.0 192.168.254.1
+ip route-static 192.168.64.0 255.255.255.0 61.182.20.1
+ip route-static 192.168.64.0 255.255.255.0 183.198.2.1
+ip route-static 192.168.64.0 255.255.255.0 192.168.252.5
+#
+user-interface con 0
+ authentication-mode password
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 60 0
+user-interface vty 16 20
+#
+wlan ac
+#
+return

@@ -1,0 +1,120 @@
+<R-Out02>dis cu
+[V200R003C00]
+#
+ sysname R-Out02
+#
+ board add 0/2 4GET 
+#
+ snmp-agent local-engineid 800007DB03000000000000
+ snmp-agent community read %$%$1wm{LT#a-:Ud=c.KBP{$,#/V%$%$ 
+ snmp-agent sys-info version v2c
+ snmp-agent target-host trap-hostname nms address 192.168.200.30 udp-port 162 tr
+ap-paramsname trap_params
+ snmp-agent target-host trap-paramsname trap_params v2c securityname admin@123
+ snmp-agent trap enable
+ snmp-agent 
+#
+ clock timezone China-Standard-Time minus 08:00:00
+#
+portal local-server load flash:/portalpage.zip
+#
+ drop illegal-mac alarm
+#
+ info-center loghost 192.168.200.31
+#
+ wlan ac-global carrier id other ac id 0
+#
+ set cpu-usage threshold 80 restore 75
+#
+acl number 2000  
+ rule 5 permit source 192.168.0.0 0.0.255.255 
+#
+aaa 
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default 
+ domain default_admin 
+ local-user admin password cipher %$%$K8m.Nt84DZ}e#<0`8bmE3Uw}%$%$
+ local-user admin service-type http
+ local-user netadmin password cipher %$%$Nsj&P;Is^+^&"'W_>PF+k4H,%$%$
+ local-user netadmin privilege level 15
+ local-user netadmin service-type telnet
+#
+firewall zone Local
+ priority 15
+#
+ nat address-group 1 183.198.3.1 183.198.3.1
+#
+interface Ethernet0/0/0
+#
+interface Ethernet0/0/1
+#
+interface Ethernet0/0/2
+#
+interface Ethernet0/0/3
+#
+interface Ethernet0/0/4
+#
+interface Ethernet0/0/5
+#
+interface Ethernet0/0/6
+#
+interface Ethernet0/0/7
+#
+interface GigabitEthernet0/0/0
+ ip address 192.168.252.5 255.255.255.0 
+#
+interface GigabitEthernet0/0/1
+#
+interface GigabitEthernet2/0/0
+ ip address 183.198.2.1 255.255.255.248 
+ nat outbound 2000 address-group 1 
+#
+interface GigabitEthernet2/0/1
+ ip address 183.198.3.1 255.255.255.248 
+ nat outbound 2000 address-group 1 
+#
+interface GigabitEthernet2/0/2
+ ip address 192.168.107.254 255.255.255.0 
+#
+interface GigabitEthernet2/0/3
+ ip address 192.168.108.254 255.255.255.0 
+#
+interface NULL0
+#
+ospf 1 router-id 2.2.2.2 
+ silent-interface GigabitEthernet2/0/1
+ silent-interface GigabitEthernet2/0/0
+ area 0.0.0.0 
+  network 192.168.107.0 0.0.0.255 
+  network 192.168.108.0 0.0.0.255 
+  network 192.168.252.0 0.0.0.255 
+#
+ip route-static 0.0.0.0 0.0.0.0 183.198.3.2
+ip route-static 36.126.62.0 255.255.255.0 192.168.252.16
+ip route-static 36.126.62.0 255.255.255.0 183.198.3.2
+ip route-static 36.126.62.0 255.255.255.0 192.168.252.4 preference 70
+ip route-static 36.144.42.0 255.255.255.0 192.168.252.14
+ip route-static 36.144.42.0 255.255.255.0 183.198.2.2
+ip route-static 36.144.42.0 255.255.255.0 192.168.252.4 preference 70
+ip route-static 192.168.0.0 255.255.0.0 192.168.254.2
+ip route-static 192.168.0.0 255.255.0.0 192.168.252.4
+ip route-static 192.168.1.0 255.255.255.0 192.168.254.2
+ip route-static 192.168.34.0 255.255.255.0 192.168.107.1
+ip route-static 192.168.64.0 255.255.255.0 192.168.108.1
+ip route-static 192.168.251.0 255.255.255.0 192.168.252.4
+ip route-static 192.168.252.0 255.255.255.0 192.168.252.4
+ip route-static 192.168.253.0 255.255.255.0 192.168.252.4
+ip route-static 192.168.254.0 255.255.255.0 192.168.252.4
+#
+user-interface con 0
+ authentication-mode password
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 60 0
+user-interface vty 16 20
+#
+wlan ac
+#
+return
